@@ -1,5 +1,8 @@
 import express, { Application } from 'express';
-import userRoutes from "../routes/auth";
+import authRoutes from "../routes/auth";
+import messageRoutes from "../routes/message";
+import defaultDatasource from '../db';
+
 
 class Server {
 
@@ -7,7 +10,8 @@ class Server {
     private app: Application;
     private port: string;
     private apiPaths = {
-        auths: '/wires/auth'
+        auths: '/wires/auth',
+        messages: '/wires/messages'
     }
 
 
@@ -16,14 +20,30 @@ class Server {
         this.app = express();
         this.port = process.env.PORT  || '8000';
 
+        this.conectarDB();
+
         // Definicion de rutas
         this.routes();
 
     }
 
+    conectarDB() {
+
+        try {
+            defaultDatasource.initialize();
+            console.log('DB Online');
+
+        } catch (error) {
+            console.log(error);
+        }
+
+    }
+
     routes() {
 
-        this.app.use( this.apiPaths.auths, userRoutes );
+        this.app.use( this.apiPaths.auths, authRoutes );
+        this.app.use( this.apiPaths.messages, messageRoutes );
+
     }
 
 

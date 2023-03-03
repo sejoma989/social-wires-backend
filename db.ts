@@ -1,5 +1,5 @@
 import { DataSource } from "typeorm";
-import { host, port, name, user, password } from './config';
+import { host, port, database, username, password } from './config';
 import { User } from "./entities/User";
 
 const defaultDatasource: DataSource = new DataSource({
@@ -7,8 +7,8 @@ const defaultDatasource: DataSource = new DataSource({
     host,
     port: +port,
     entities: [User],
-    database: name,
-    username: user,
+    database,
+    username,
     password
   });
 
