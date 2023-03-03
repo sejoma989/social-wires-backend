@@ -1,0 +1,13 @@
+services: 
+  postgres:
+    image: postgres:latest
+    environment:
+      - DATABASE_HOST=localhost
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+    restart: always
