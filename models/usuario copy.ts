@@ -1,5 +1,6 @@
-import { DataTypes } from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
 import db from '../db/connection';
+
 
 
 const Usuario = db.define('usuario', {
@@ -11,9 +12,6 @@ const Usuario = db.define('usuario', {
     },
     password: {
         type: DataTypes.STRING,
-        get() {
-            return () => this.getDataValue('password');
-        },
     },
     fullname: {
         type: DataTypes.STRING,

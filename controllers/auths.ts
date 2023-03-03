@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { generateJWT } from "../helpers/generate-jwt";
 import Usuario from "../models/usuario";
 
 
@@ -24,7 +25,7 @@ export const signUp = async ( req:Request, res:Response ) => {
         }
 
 
-        const usuario = new Usuario( body );
+        const usuario = Usuario.build( body );
         await usuario.save();
 
         res.json({ 
@@ -41,16 +42,50 @@ export const signUp = async ( req:Request, res:Response ) => {
 }
 
 // signin route auth
-export const signIn = ( req:Request, res:Response ) => {
+export const signIn = async ( req:Request, res:Response ) => {
 
-    const { body } = req;
+    const { username, password } = req.body;
+    // const { body } = req;
 
-    res.json({
-        msg:'signIn',
-        body
-    })
+    try {
+
+        // verificar que username existe
+        const usuario = await Usuario.findOne({ where: {username } });
+        if ( !usuario ) {
+            return res.status(400).json({
+                msg: 'Usuario / Password no son correctos - username'
+            });
+        }
+
+        // verificar que el password sea correcto
+        const validPassword = usuario.getDataValue('password');
+        if ( password !== validPassword ) {
+            return res.status(400).json({
+                msg: 'Usuario / Password no son correctos - password'
+            });
+        }
+
+        // generar el JWT
+        const token = await generateJWT( usuario.getDataValue('id') );
+
+        res.json({
+            access_token:token,
+            expires_in: '4h',
+            message: "Successfully logged in",
+            status: true
+        })
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg:'Hable con el administrador'
+        })
+    }
+
 
 }
+
+
 
 export const getUsuarios = async ( req:Request, res:Response ) => {
 
