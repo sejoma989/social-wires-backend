@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import db from '../db/connection';
 
+
 const Usuario = db.define('usuario', {
     username: {
         type: DataTypes.STRING,
@@ -15,6 +16,11 @@ const Usuario = db.define('usuario', {
         type: DataTypes.STRING,
     },
 });
+
+// UsuarioSchema.methods.toJSON = function() {
+//     const { __v, password, ...usuario } = this.toObject();
+//     return usuario;
+// }
 
 
 export default Usuario;
