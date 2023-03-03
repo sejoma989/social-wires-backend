@@ -2,14 +2,26 @@ import { Request, Response } from "express";
 import Mensaje from "../models/message";
 
 // POST route createMessage
-export const createMessage = ( req:Request, res:Response ) => {
+export const createMessage = async ( req:Request, res:Response ) => {
 
     const { body } = req;
 
-    res.json({
-        msg:'Create message',
-        body
-    })
+    try {
+
+        const mensaje = Mensaje.build( body );
+        await mensaje.save();
+         
+
+        res.json( mensaje );
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg:'Hable con el administrador'
+        })
+    }
+
+
 
 }
 

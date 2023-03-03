@@ -17,11 +17,11 @@ const Mensaje = db.define('mensaje', {
     }
 );
 
-// Mensaje.prototype.toJSON =  function () {
-//        let values = Object.assign({}, this.get());   
-//        delete values.password, delete values.createdAt, delete values.updatedAt;   
-//        return values; 
-//     }
+Mensaje.prototype.toJSON =  function () {
+       let values = Object.assign({}, this.get());   
+       delete values.updatedAt;   
+       return values; 
+    }
 
 
 export default Mensaje;
