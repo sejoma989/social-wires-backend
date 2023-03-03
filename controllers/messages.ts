@@ -34,14 +34,19 @@ export const getMyMessages = ( req:Request, res:Response ) => {
 }
 
 // GET route getMessageById
-export const getMessageById = ( req:Request, res:Response ) => {
+export const getMessageById = async ( req:Request, res:Response ) => {
 
     const { id } = req.params;
 
-    res.json({
-        msg:'Get a Message by id',
-        id
-    })
+    const mensaje = await Mensaje.findByPk( id );
+
+    if ( !mensaje ) {
+        return res.status(404).json({
+            msg: `No existe un mensaje con el id ${ id }`
+        });
+    }
+    
+    res.json(mensaje)
 
 }
 
