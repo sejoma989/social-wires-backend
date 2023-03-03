@@ -1,4 +1,5 @@
 import express, { Application } from 'express';
+import cors from 'cors';
 import authRoutes from "../routes/auth";
 import messageRoutes from "../routes/message";
 import defaultDatasource from '../db';
@@ -22,6 +23,9 @@ class Server {
 
         this.conectarDB();
 
+        // Middlewares metodos iniciales
+        this.middlewares();
+
         // Definicion de rutas
         this.routes();
 
@@ -36,6 +40,19 @@ class Server {
         } catch (error) {
             console.log(error);
         }
+
+    }
+
+    middlewares() {
+
+        // Cors
+        this.app.use( cors() );
+
+        // Parseo y lectura del body
+        this.app.use( express.json() );
+
+        // Directorio publico
+        this.app.use( express.static('public') );
 
     }
 
