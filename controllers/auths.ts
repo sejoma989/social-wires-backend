@@ -13,18 +13,6 @@ export const signUp = async ( req:Request, res:Response ) => {
     try {
 
         // Verificar si el email existe
-        const existeEmail = await Usuario.findOne({
-            where: {
-                email: body.email
-            }
-        });
-
-        if (existeEmail) {
-            return res.status(400).json({
-                msg: 'El correo ya esta registrado ' + body.email
-            })
-        }
-
 
         const nombreTemp = uuidv4();
         const usuario = Usuario.build( body );

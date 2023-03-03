@@ -50,6 +50,7 @@ export const getMessageById = async ( req:Request, res:Response ) => {
 
     const { id } = req.params;
 
+
     const mensaje = await Mensaje.findByPk( id );
 
     if ( !mensaje ) {
