@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { generateJWT } from "../helpers/generate-jwt";
 import Usuario from "../models/user";
+import { v4 as uuidv4 } from 'uuid';
 
 
 // signup route postUsuario
@@ -20,11 +21,12 @@ export const signUp = async ( req:Request, res:Response ) => {
 
         if (existeEmail) {
             return res.status(400).json({
-                msg: 'El correo ya esta registrado' + body.email
+                msg: 'El correo ya esta registrado ' + body.email
             })
         }
 
 
+        const nombreTemp = uuidv4();
         const usuario = Usuario.build( body );
         await usuario.save();
 
@@ -34,7 +36,7 @@ export const signUp = async ( req:Request, res:Response ) => {
 
     } catch (error) {
         res.status(500).json({
-            msg:'Hable con el administrador'
+            msg:'Hable con el administrador '
         })
     }
 
