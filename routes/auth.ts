@@ -14,7 +14,11 @@ router.post('/signup', [
     check('fullname', 'El nombre completo es obligatorio').not().isEmpty(),
     validateFields
 ] , signUp );
-router.post('/signin',  signIn);
+router.post('/signin', [
+    check('username', 'El username es obligatorio').not().isEmpty(),
+    check('password', 'El password es obligatorio').not().isEmpty(),
+    validateFields
+],  signIn);
 router.get('/',  getUsuarios);
 
 
