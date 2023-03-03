@@ -5,9 +5,19 @@ services:
       - DATABASE_HOST=localhost
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=postgres
+      - POSTGRES_DB=wires-node
     ports:
       - "5432:5432"
     volumes:
       - ./postgres:/var/lib/postgresql/data
     restart: always
+  
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres
