@@ -11,7 +11,11 @@ const Mensaje = db.define('mensaje', {
     text: {
         type: DataTypes.STRING,
     },
-});
+    },
+    {
+        tableName: "mensajes",
+    }
+);
 
 // Mensaje.prototype.toJSON =  function () {
 //        let values = Object.assign({}, this.get());   

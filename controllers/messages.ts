@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import Mensaje from "../models/message";
 
 // POST route createMessage
 export const createMessage = ( req:Request, res:Response ) => {
@@ -13,10 +14,12 @@ export const createMessage = ( req:Request, res:Response ) => {
 }
 
 // GET route getAllMessages
-export const getAllMessages = ( req:Request, res:Response ) => {
+export const getAllMessages = async ( req:Request, res:Response ) => {
+
+    const mensajes = await Mensaje.findAll();
 
     res.json({
-        msg:'Get All Messages',
+        mensajes
     })
 
 }
