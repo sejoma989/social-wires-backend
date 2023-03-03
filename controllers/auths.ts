@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { generateJWT } from "../helpers/generate-jwt";
-import Usuario from "../models/usuario";
+import Usuario from "../models/user";
 
 
 // signup route postUsuario
