@@ -6,6 +6,8 @@ Evidencia de realizacion prueba tecnica para empresa Inlaze
 
 Directorio que contiene backend de la aplicacion wires
 
+Link a Documentacion Oficial Postman Wires [https://documenter.getpostman.com/view/7174646/2s93JnTmPB]
+
 
 
 ## Entorno
