@@ -64,13 +64,24 @@ export const getMessageById = async ( req:Request, res:Response ) => {
 }
 
 // DELETE route deleteMessage
-export const deleteMessage = ( req:Request, res:Response ) => {
+export const deleteMessage = async ( req:Request, res:Response ) => {
 
     const { id } = req.params;
 
-    res.json({
-        msg:'Delete a Message by id',
-        id
+    const mensaje = await Mensaje.findByPk( id );
+
+    if ( !mensaje ) {
+        return res.status(404).json({
+            msg: `No existe un mensaje con el id ${ id }`
+        });
+    }
+
+    await mensaje.destroy();
+
+    res.json({ 
+        delete: true, 
+        status: "OK",
+        mensaje 
     })
 
 }

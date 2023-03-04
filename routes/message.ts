@@ -2,6 +2,9 @@ import { Router } from "express";
 import { createMessage, getAllMessages, getMyMessages, getMessageById, deleteMessage, createReaction, createComment } from '../controllers/messages';
 import { validateFields } from "../middlewares/validate-fields";
 import { validateJWT } from "../middlewares/validate-jwt";
+import { existMessageById } from '../helpers/db-validators';
+import { check } from 'express-validator';
+
 
 const router = Router();
 
@@ -23,6 +26,7 @@ router.get('/me/:id', [
 ], getMessageById);
 router.delete('/:id', [
     validateJWT,
+    check('id').custom( existMessageById ),
     validateFields
 ],deleteMessage);
 router.patch('/reaction/:id', [
