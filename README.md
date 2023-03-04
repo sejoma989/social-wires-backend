@@ -55,7 +55,9 @@ Terminal 2: Ejecucion del codigo traducido a JS
     $ npm run start
 
 
-# Register
+# Postman collection
+
+## Register
 
 POST wires/auth/signup
 Body:
@@ -76,7 +78,7 @@ Return user with your data your id and creation date
 }
 ```
 
-# Login
+## Login
 
 POST wires/auth/signin
 Body:
@@ -99,7 +101,7 @@ Return return an access token for the authorization of further requests
 
 - Other endpoints will require you to pass the authorization token into the application via an authorization bearer token ✓
 
-# Create Message
+## Create Message
 
 POST wires/messages
 Body:
@@ -120,7 +122,7 @@ Returns all the data corresponding to the message created.
 }
 ```
 
-# Get all Messages
+## Get all Messages
 
 GET wires/messages
 
@@ -144,7 +146,7 @@ returns all created messages independent of the user
     }
 ```
 
-# get owner messages
+## get owner messages
 
 GET wires/messages/me
 
@@ -169,7 +171,7 @@ returns all messages appended to my user id
 ]
 ```
 
-# Get only message by id
+## Get only message by id
 
 GET wires/messages/me/${id}
 
@@ -185,35 +187,6 @@ returns the message found with that id
 }
 ```
 
-# Get Filter message
-
-GET wires/messages/find
-
-returns messages found by search filters
-
-Body:
--search : string ? optional
--date : date ? optional
-
-```bash
-query:
-
-{
-    "search" : "new"
-}
-
-result:
-
-[
-    {
-        "id": "3",
-        "title": "new messages",
-        "text": "this is a desc message",
-        "createdAt": "2023-01-10",
-        "updatedAt": "2023-01-10T14:56:24.332Z"
-    }
-]
-```
 
 # Delete a message
 
@@ -257,5 +230,34 @@ return message with comments
         "createdAt": "2023-01-10T17:32:45.687Z",
         "updatedAt": "2023-01-10T17:32:45.687Z"
     }
+}
+```
+
+# React message
+
+PATCH wires/messages/reaction/${message_id}
+
+Params : id - this is a message id
+Body:
+    - reaction : string
+    - author : string
+
+return message with reactions
+
+Must convert emojis to ascii before insert in DB
+
+```bash
+{ 
+    "id": "4", 
+    "user": "5c91874d-e8f2-4119-9a80-8e3d8f23dfee", 
+    "title": "my messages", 
+    "text": "this is a desc for my message", 
+    "comments" : [], 
+    "reactions" : [{
+        "reaction" : "U+1F600" ,
+        "author" : "5c91874d-e8f2-4119-9a80-8e3d8f23dfee" 
+    }],
+    "createdAt": "2023-01-11", 
+    "updatedAt": "2023-01-11", 
 }
 ```
