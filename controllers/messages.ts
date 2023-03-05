@@ -1,5 +1,12 @@
 import { Request, Response } from "express";
+import { Op } from "sequelize";
 import Mensaje from "../models/message";
+import Usuario from "../models/user";
+
+
+interface MyUserRequest extends Request {
+    usuario?: any;
+}
 
 // POST route createMessage
 export const createMessage = async ( req:Request, res:Response ) => {
@@ -37,10 +44,19 @@ export const getAllMessages = async ( req:Request, res:Response ) => {
 }
 
 // GET route getMyMessages
-export const getMyMessages = ( req:Request, res:Response ) => {
+export const getMyMessages = async ( req:MyUserRequest, res:Response ) => {
+
+    const usuarioAutenticado = String(req.usuario.id);
+
+    const mensajes = await Mensaje.findAll({ 
+        where: { user: usuarioAutenticado }
+    });
+
 
     res.json({
-        msg:'Get All My Messages',
+        mensajes,
+        usuarioAutenticado,
+
     })
 
 }
