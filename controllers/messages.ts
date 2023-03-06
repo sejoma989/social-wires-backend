@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Op } from "sequelize";
+import Comentario from "../models/comment";
 import Mensaje from "../models/message";
 import Usuario from "../models/user";
 
@@ -131,15 +132,57 @@ export const createReaction = ( req:Request, res:Response ) => {
 }
 
 // PATCH route createReaction
-export const createComment = ( req:Request, res:Response ) => {
+export const createComment = async ( req:MyUserRequest, res:Response ) => {
 
     const { id } = req.params;
     const { body } = req;
 
-    res.json({
-        msg:'Create a Comment by id',
-        body,
-        id
-    })
+
+    try {
+
+    
+        const mensaje = await Mensaje.findByPk( id );
+        
+        if ( !mensaje ) {
+            return res.status(404).json({
+                msg: `No existe un mensaje con el id ${ id }`
+            });
+        }
+
+        console.log(body);
+        const usuarioAutenticado = String(req.usuario.id);
+
+        body.author = usuarioAutenticado;
+        body.messageId = id;
+
+
+        const comentario = Comentario.build( body );
+        await comentario.save();
+
+        res.json( {mensaje, comentario } );
+
+
+
+    
+
+        // const mensajeActualizado = Mensaje.build( body );
+        // await mensaje.save();
+         
+
+        // res.json( mensaje );
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            msg:'Hable con el administrador'
+        })
+    }
+
+
+    // res.json({
+    //     msg:'Create a Comment by id',
+    //     body,
+    //     id
+    // })
 
 }

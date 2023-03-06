@@ -35,11 +35,11 @@ router.delete('/:id', [
 router.patch('/reaction/:id', [
     validateJWT,
     validateFields
-],  createReaction);
+],createReaction);
 router.patch('/comment/:id', [
     validateJWT,
     validateFields
-],   createComment);
+],createComment);
 
 
 
