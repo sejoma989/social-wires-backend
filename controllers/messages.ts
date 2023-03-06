@@ -9,9 +9,13 @@ interface MyUserRequest extends Request {
 }
 
 // POST route createMessage
-export const createMessage = async ( req:Request, res:Response ) => {
+export const createMessage = async ( req:MyUserRequest, res:Response ) => {
 
     const { body } = req;
+    const usuarioAutenticado = String(req.usuario.id);
+
+    body.user = usuarioAutenticado;
+
 
     try {
 
