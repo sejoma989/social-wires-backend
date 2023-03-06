@@ -10,6 +10,8 @@ const router = Router();
 
 router.post('/', [
     validateJWT,
+    check('title', 'El titulo es obligatorio').not().isEmpty(),
+    check('text', 'El texto es obligatorio').not().isEmpty(),
     validateFields
 ],createMessage);
 router.get('/',  [
@@ -26,6 +28,7 @@ router.get('/me/:id', [
 ], getMessageById);
 router.delete('/:id', [
     validateJWT,
+    check('id', 'Ingrese el ID del mensaje').not().isEmpty(),
     check('id').custom( existMessageById ),
     validateFields
 ],deleteMessage);

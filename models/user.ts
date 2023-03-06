@@ -5,18 +5,24 @@ import db from '../db/connection';
 const Usuario = db.define('usuario', {
     username: {
         type: DataTypes.STRING,
+        allowNull: false,
+
     },
     email: {
         type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
     },
     password: {
         type: DataTypes.STRING,
+        allowNull: false,
         get() {
             return () => this.getDataValue('password');
         },
     },
     fullname: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
 });
 

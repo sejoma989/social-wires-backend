@@ -6,7 +6,6 @@ import Usuario from "../models/user";
 
 interface MyUserRequest extends Request {
     usuario?: any;
-    user?: any;
 }
 
 // POST route createMessage

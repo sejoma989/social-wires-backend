@@ -4,12 +4,15 @@ import db from '../db/connection';
 const Mensaje = db.define('mensaje', {
     user: {
         type: DataTypes.STRING,
+        allowNull: false,
     },
     title: {
         type: DataTypes.STRING,
+        allowNull:  false
     },
     text: {
         type: DataTypes.STRING,
+        allowNull: false
     },
     },
     {
