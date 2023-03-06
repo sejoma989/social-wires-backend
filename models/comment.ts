@@ -5,8 +5,6 @@ import Mensaje from './message';
 const Comentario = db.define('comentario', {
     messageId: {
         type: DataTypes.INTEGER,
-        // primaryKey: true,
-        // autoIncrement: true
     },
     comment: {
         type: DataTypes.STRING,

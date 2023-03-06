@@ -14,7 +14,6 @@ export const signUp = async ( req:Request, res:Response ) => {
 
         // Verificar si el email existe
 
-        // body.id = uuidv4();
         const usuario = Usuario.build( body );
         await usuario.save();
 
@@ -35,7 +34,6 @@ export const signUp = async ( req:Request, res:Response ) => {
 export const signIn = async ( req:Request, res:Response ) => {
 
     const { username, password } = req.body;
-    // const { body } = req;
 
     try {
 

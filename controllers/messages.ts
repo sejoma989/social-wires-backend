@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { Op } from "sequelize";
 import Comentario from "../models/comment";
 import Mensaje from "../models/message";
-// import Usuario from "../models/user";
 
 
 interface MyUserRequest extends Request {
@@ -112,7 +111,6 @@ export const deleteMessage = async ( req:MyUserRequest, res:Response ) => {
     res.json({ 
         delete: true, 
         status: "OK",
-        // mensaje 
     })
 
 }
@@ -149,7 +147,6 @@ export const createComment = async ( req:MyUserRequest, res:Response ) => {
             });
         }
 
-        console.log(body);
         const usuarioAutenticado = String(req.usuario.id);
 
         body.author = usuarioAutenticado;
@@ -167,15 +164,6 @@ export const createComment = async ( req:MyUserRequest, res:Response ) => {
 
         res.json( mensaje  );
 
-
-
-    
-
-        // const mensajeActualizado = Mensaje.build( body );
-        // await mensaje.save();
-         
-
-        // res.json( mensaje );
         
     } catch (error) {
         console.log(error);
@@ -183,12 +171,5 @@ export const createComment = async ( req:MyUserRequest, res:Response ) => {
             msg:'Hable con el administrador'
         })
     }
-
-
-    // res.json({
-    //     msg:'Create a Comment by id',
-    //     body,
-    //     id
-    // })
 
 }

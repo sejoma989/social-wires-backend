@@ -19,7 +19,6 @@ export const validateJWT = async (req:MyUserRequest, res:Response, next: () => v
 
     try {
 
-        // const payload = jwt.verify( token, process.env.SECRETORPRIVATEKEY || '' );
         const { uid } = jwt.verify( token, process.env.SECRETORPRIVATEKEY || '' ) as any;
         const usuario = await Usuario.findByPk( uid );
 
@@ -30,9 +29,6 @@ export const validateJWT = async (req:MyUserRequest, res:Response, next: () => v
         }
 
         req.usuario = usuario.dataValues;
-
-        // console.log(req.usuario);
-
 
         next();
 
