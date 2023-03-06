@@ -27,8 +27,12 @@ const Comentario = db.define('comentario', {
 
 Comentario.prototype.toJSON =  function () {
        let values = Object.assign({}, this.get());   
-       delete values.updatedAt, delete values.createdAt, delete values.updatedAt;   
-       return values.comments; 
+       delete values.updatedAt, 
+       delete values.createdAt, 
+       delete values.updatedAt, 
+       delete values.id, 
+       delete values.messageId;   
+       return values; 
     }
 
 

@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { Op } from "sequelize";
 import Comentario from "../models/comment";
 import Mensaje from "../models/message";
-import Usuario from "../models/user";
+// import Usuario from "../models/user";
 
 
 interface MyUserRequest extends Request {
@@ -159,7 +159,13 @@ export const createComment = async ( req:MyUserRequest, res:Response ) => {
         const comentario = Comentario.build( body );
         await comentario.save();
 
-        res.json( {mensaje, comentario } );
+        const results = await Comentario.findAll(
+            { where: { messageId: id } }
+        );
+
+        mensaje.dataValues.comments = results;
+
+        res.json( mensaje  );
 
 
 
