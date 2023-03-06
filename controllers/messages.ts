@@ -6,6 +6,7 @@ import Usuario from "../models/user";
 
 interface MyUserRequest extends Request {
     usuario?: any;
+    user?: any;
 }
 
 // POST route createMessage
@@ -84,7 +85,7 @@ export const getMessageById = async ( req:Request, res:Response ) => {
 }
 
 // DELETE route deleteMessage
-export const deleteMessage = async ( req:Request, res:Response ) => {
+export const deleteMessage = async ( req:MyUserRequest, res:Response ) => {
 
     const { id } = req.params;
 
@@ -96,12 +97,22 @@ export const deleteMessage = async ( req:Request, res:Response ) => {
         });
     }
 
+    const usuarioMensaje = String(mensaje.dataValues.user);
+    const usuarioAutenticado = String(req.usuario.id);
+
+
+    if ( usuarioMensaje !== usuarioAutenticado ) {
+        return res.status(401).json({
+            msg: `Solo puede eliminar mensajes de propia autoria`
+        });
+    }
+
     await mensaje.destroy();
 
     res.json({ 
         delete: true, 
         status: "OK",
-        mensaje 
+        // mensaje 
     })
 
 }
